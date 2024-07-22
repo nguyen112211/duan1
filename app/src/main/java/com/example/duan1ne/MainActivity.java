@@ -68,8 +68,6 @@ public class MainActivity extends AppCompatActivity {
     }
     public void updateCart(ArrayList<Product> productList) {
         // Gọi phương thức cập nhật danh sách sản phẩm trong CartFragment
-        if (cartFragment != null) {
-            cartFragment.updateProductList(productList);
-        }
+
     }
 }

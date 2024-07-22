@@ -37,6 +37,17 @@ public class ProductDao {
         }
         return list;
     }
+
+    public boolean isProductInCart(int productId) {
+        SQLiteDatabase db = database.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM Cart WHERE product_id = ?",
+                new String[]{String.valueOf(productId)});
+
+        boolean exists = cursor.getCount() > 0;
+        cursor.close();
+        return exists;
+    }
+
 }
 
 

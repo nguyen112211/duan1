@@ -32,7 +32,7 @@
 
         <!-- Total price -->
         <TextView
-            android:id="@+id/textTotalPrice"
+            android:id="@+id/txtTotalPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Total: $0.00"

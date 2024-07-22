@@ -36,6 +36,7 @@
         android:inputType="textEmailAddress"
         android:layout_height="wrap_content"
         android:layout_margin="30px"
+        android:text="nguyen1234@gmail.com"
         android:hint="Gmail"/>
 
     <EditText
@@ -43,6 +44,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Password"
+        android:text="nguyen123"
         android:layout_margin="30px"
         android:inputType="textPassword"
 

@@ -16,8 +16,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.duan1ne.Data.Database;
 import com.example.duan1ne.MainActivity;
+import com.example.duan1ne.Model.Cart;
 import com.example.duan1ne.Model.Product;
 import com.example.duan1ne.R;
+import com.example.duan1ne.dao.CartDao;
+import com.example.duan1ne.dao.ProductDao;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,10 +28,12 @@ import java.util.List;
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHolder> {
 
     private List<Product> listproduct;
+    private List<Cart> listCart;
     private Context context;
     private List<Product> originalList;
     private List<Product> filteredList;
     private Database dbHelper;
+    private ProductDao productDao;
 
     public ProductAdapter(Context context, List<Product> list) {
         this.context = context;
@@ -50,10 +55,12 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Product product = filteredList.get(position);
+        productDao = new ProductDao(context);
+        boolean isInCart = productDao.isProductInCart(product.getId());
         holder.name.setText(product.getName());
         holder.price.setText(String.valueOf(product.getPrice()));
 
-        if (product.isInCart()) {
+        if (isInCart) {
             holder.addtocart.setText("Added");
             holder.addtocart.setEnabled(false);
         } else {
@@ -104,6 +111,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         values.put("product_id", product.getId());
         values.put("name", product.getName());
         values.put("price", product.getPrice());
+        values.put("quantity", 1);
 
         long result = db.insert("CART", null, values);
         db.close();

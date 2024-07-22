@@ -1,23 +1,21 @@
 package com.example.duan1ne.Model;
 
-public class Product {
+public class Cart {
     private int id;
+    private int productId;
     private String name;
     private int price;
+    private int quantity;
 
-    private boolean inCart;
-
-    public Product(int id, String name, int price, boolean inCart) {
+    public Cart(int id, int productId, String name, int price, int quantity) {
         this.id = id;
+        this.productId = productId;
         this.name = name;
         this.price = price;
-        this.inCart = inCart;
+        this.quantity = quantity;
     }
 
-    public Product(int id, String name, int price) {
-        this.id = id;
-        this.name = name;
-        this.price = price;
+    public Cart() {
     }
 
     public int getId() {
@@ -26,6 +24,14 @@ public class Product {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getProductId() {
+        return productId;
+    }
+
+    public void setProductId(int productId) {
+        this.productId = productId;
     }
 
     public String getName() {
@@ -44,11 +50,11 @@ public class Product {
         this.price = price;
     }
 
-    public boolean isInCart() {
-        return inCart;
+    public int getQuantity() {
+        return quantity;
     }
 
-    public void setInCart(boolean inCart) {
-        this.inCart = inCart;
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 }

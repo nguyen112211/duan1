@@ -26,10 +26,9 @@ public class Database extends SQLiteOpenHelper {
         dp.execSQL(category);
 
         //tạo bảng cart
-        String cartTable = "CREATE TABLE CART(id INTEGER PRIMARY KEY AUTOINCREMENT, product_id INTEGER, name text,price interger);";
+        String cartTable = "CREATE TABLE CART(id INTEGER PRIMARY KEY AUTOINCREMENT, product_id INTEGER, name text,price interger, quantity INTEGER);";
         dp.execSQL(cartTable);
 
-        dp.execSQL("INSERT INTO CATEGORY VALUES(1,'pho bien') ");
         //tao bang product
         String product = "CREATE TABLE PRODUCT(id INTEGER PRIMARY KEY AUTOINCREMENT ,name TEXT, image BLOB , price INTEGER, inCart INTEGER DEFAULT 0, category_id INTEGER REFERENCES CATEGORY(id))";
         dp.execSQL(product);
