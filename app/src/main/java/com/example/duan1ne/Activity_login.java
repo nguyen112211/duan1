@@ -12,20 +12,16 @@ import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.Firebase;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class Activity_login extends AppCompatActivity {
     private EditText edtemail,edtpassword;
     private Button btnlogin,btnregister;
-    private TextView txtreset;
+    private TextView txtreset,txtCheckRsl;
     private FirebaseAuth mAuth;
 
     @Override
@@ -36,9 +32,10 @@ public class Activity_login extends AppCompatActivity {
         mAuth=FirebaseAuth.getInstance();
         edtemail = findViewById(R.id.edtgmail);
         edtpassword = findViewById(R.id.edtpassword);
-        btnlogin = findViewById(R.id.btnlogin);
-        btnregister = findViewById(R.id.btnregister);
+        btnlogin = findViewById(R.id.btnregister);
+        btnregister = findViewById(R.id.btnlogin);
         txtreset = findViewById(R.id.txtresetpass);
+        txtCheckRsl = findViewById(R.id.txtCheckRsl);
         txtreset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -69,22 +66,26 @@ public class Activity_login extends AppCompatActivity {
         email = edtemail.getText().toString();
         password = edtpassword.getText().toString();
         if(TextUtils.isEmpty(email)){
-            Toast.makeText(this,"vui lòng nhập email",Toast.LENGTH_SHORT).show();
+            txtCheckRsl.setText("* Vui lòng nhập email *");
+            txtCheckRsl.setVisibility(View.VISIBLE);
             return;
         }
         if(TextUtils.isEmpty(password)){
-            Toast.makeText(this,"vui lòng nhập email",Toast.LENGTH_SHORT).show();
+            txtCheckRsl.setText("* Vui lòng nhập mật khẩu *");
+            txtCheckRsl.setVisibility(View.VISIBLE);
             return;
         }
         mAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
-                    Toast.makeText(getApplicationContext(),"Đăng nhập thành công",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Activity_login.this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
                     Intent i = new Intent(Activity_login.this,MainActivity.class);
                     startActivity(i);
+                    finish();
                 }else {
-                    Toast.makeText(getApplicationContext(),"Đăng nhập không thành công",Toast.LENGTH_SHORT).show();
+                    txtCheckRsl.setText("* Đăng nhập thất bại *");
+                    txtCheckRsl.setVisibility(View.VISIBLE);
                 }
             }
         });

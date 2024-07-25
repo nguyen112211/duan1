@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity_login"
+    tools:context=".Activity_signin"
     android:orientation="vertical"
     android:background="#f8ebd8">
 
@@ -28,7 +28,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Sign in"
+            android:text="Sign up"
             android:textColor="#4B2C20"
             android:textSize="28sp"
             android:textStyle="bold"
@@ -39,15 +39,15 @@
 
         <TextView
             android:id="@+id/textView6"
-            android:layout_width="255dp"
-            android:layout_height="54dp"
+            android:layout_width="309dp"
+            android:layout_height="61dp"
             android:layout_marginTop="8dp"
-            android:text="It’s coffee time! Login and lets get all the coffee in the world! Or at least iced coffee. "
+            android:text="We are so excited you’re ready to become apart of our coffee network! don’t forget  check out your perks!"
             android:textColor="#4B2C20"
             android:textSize="14sp"
             android:textStyle="normal"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.333"
+            app:layout_constraintHorizontal_bias="0.493"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
@@ -55,13 +55,13 @@
             android:id="@+id/textView8"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:text="Username"
+            android:layout_marginTop="12dp"
+            android:text="Email"
             android:textColor="#4E8D7C"
             android:textSize="14sp"
             android:textStyle="normal"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.146"
+            app:layout_constraintHorizontal_bias="0.132"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
@@ -77,7 +77,7 @@
             android:paddingStart="10sp"
             android:paddingTop="8sp"
             android:paddingBottom="8sp"
-            android:text="nguyen1234@gmail.com"
+            android:text=""
             android:textSize="16sp"
             android:textStyle="normal"
             app:layout_constraintEnd_toEndOf="parent"
@@ -89,13 +89,13 @@
             android:id="@+id/textView81"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="8dp"
             android:text="Password"
             android:textColor="#4e8d7c"
             android:textSize="14sp"
             android:textStyle="normal"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.144"
+            app:layout_constraintHorizontal_bias="0.143"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/edtgmail" />
 
@@ -103,7 +103,7 @@
             android:id="@+id/edtpassword"
             android:layout_width="308dp"
             android:layout_height="50dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="8dp"
             android:background="@drawable/shape_rounded_correr_full"
             android:elevation="2dp"
             android:hint="Type your password"
@@ -112,93 +112,86 @@
             android:paddingTop="8sp"
             android:paddingBottom="8sp"
             android:textSize="16sp"
-            android:text="nguyen123"
             android:textStyle="normal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.495"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView81" />
 
-        <Button
-            android:id="@+id/btnlogin"
+        <TextView
+            android:id="@+id/textView811"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="96dp"
+            android:text="Confirm Password"
+            android:textColor="#4e8d7c"
+            android:textSize="14sp"
+            android:textStyle="normal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.169"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edtgmail" />
+
+        <EditText
+            android:id="@+id/edtCfpassword"
             android:layout_width="308dp"
             android:layout_height="50dp"
-            android:layout_marginTop="24dp"
-            android:background="@drawable/shape_rounded_button"
-            android:text="LOGIN"
-            android:textColor="#F6F2ED"
-            android:textSize="14sp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/shape_rounded_correr_full"
+            android:elevation="2dp"
+            android:hint="Type your confirm password"
+            android:inputType="textPassword"
+            android:paddingStart="10sp"
+            android:paddingTop="8sp"
+            android:paddingBottom="8sp"
+            android:text=""
+            android:textSize="16sp"
+            android:textStyle="normal"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.504"
+            app:layout_constraintHorizontal_bias="0.485"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtCheckRsl" />
+            app:layout_constraintTop_toBottomOf="@+id/textView811" />
 
         <Button
             android:id="@+id/btnregister"
             android:layout_width="308dp"
             android:layout_height="50dp"
-            android:layout_marginTop="212dp"
+            android:layout_marginTop="16dp"
             android:background="@drawable/shape_rounded_button"
-            android:text="CREATE NEW ACCOUNT"
+            android:text="REGISTER"
             android:textColor="#F6F2ED"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.495"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edtpassword" />
+            app:layout_constraintTop_toBottomOf="@+id/edtCfpassword" />
 
-        <TextView
-            android:id="@+id/textView101"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="60dp"
-            android:text="Forgot password?"
-            android:textColor="#4E8D7C"
+        <Button
+            android:id="@+id/btnlogin"
+            android:layout_width="308dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="120dp"
+            android:background="@drawable/shape_rounded_button"
+            android:text="SIGN IN"
+            android:textColor="#F6F2ED"
             android:textSize="14sp"
-            android:textStyle="normal"
-            app:layout_constraintEnd_toStartOf="@+id/txtresetpass"
-            app:layout_constraintHorizontal_bias="0.91"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnlogin" />
-
-        <TextView
-            android:id="@+id/txtresetpass"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="60dp"
-            android:layout_marginEnd="108dp"
-            android:text="Reset here"
-            android:textColor="#4B2C20"
-            android:textSize="14sp"
-            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnlogin" />
+            app:layout_constraintHorizontal_bias="0.485"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edtCfpassword" />
 
         <TextView
             android:id="@+id/textView12"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="Don’t have an account?"
+            android:text="Already have an account?"
             android:textColor="#A6A5A5"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.501"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtresetpass" />
+            app:layout_constraintTop_toBottomOf="@+id/btnregister" />
 
-        <TextView
-            android:id="@+id/txtCheckRsl"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:text="TextView"
-            android:textColor="#FB2745"
-            android:textSize="16sp"
-            android:textStyle="italic"
-            android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edtpassword" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

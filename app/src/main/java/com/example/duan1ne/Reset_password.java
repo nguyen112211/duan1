@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -24,7 +25,14 @@ public class Reset_password extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_reset_password);
+        setContentView(R.layout.activity_resetpass);
+        TextView txtBack = findViewById(R.id.txtBack);
+        txtBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(Reset_password.this , Activity_login.class));
+            }
+        });
         gmailreset = findViewById(R.id.gmailreset);
         btnresetpassword = findViewById(R.id.btnreset);
         mAuth=FirebaseAuth.getInstance();
