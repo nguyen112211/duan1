@@ -15,7 +15,7 @@
         android:layout_marginTop="25dp"
         android:layout_marginBottom="20dp"
         android:layout_gravity="center"
-        app:srcCompat="@drawable/icon_launcher" />
+        app:srcCompat="@drawable/ic_launcher" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
@@ -31,7 +31,7 @@
             android:text="Sign up"
             android:textColor="#4B2C20"
             android:textSize="28sp"
-            android:textStyle="bold"
+            android:fontFamily="@font/poppins_bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.16"
             app:layout_constraintStart_toStartOf="parent"
@@ -42,12 +42,12 @@
             android:layout_width="309dp"
             android:layout_height="61dp"
             android:layout_marginTop="8dp"
+            android:fontFamily="@font/poppins_regular"
             android:text="We are so excited you’re ready to become apart of our coffee network! don’t forget  check out your perks!"
             android:textColor="#4B2C20"
             android:textSize="14sp"
-            android:textStyle="normal"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.493"
+            app:layout_constraintHorizontal_bias="0.47"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
@@ -59,7 +59,7 @@
             android:text="Email"
             android:textColor="#4E8D7C"
             android:textSize="14sp"
-            android:textStyle="normal"
+            android:fontFamily="@font/poppins_medium"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.132"
             app:layout_constraintStart_toStartOf="parent"
@@ -72,6 +72,7 @@
             android:layout_marginTop="12sp"
             android:background="@drawable/shape_rounded_correr_full"
             android:elevation="2dp"
+            android:fontFamily="@font/poppins_regular"
             android:hint="Enter username"
             android:inputType="textEmailAddress"
             android:paddingStart="10sp"
@@ -79,9 +80,8 @@
             android:paddingBottom="8sp"
             android:text=""
             android:textSize="16sp"
-            android:textStyle="normal"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.495"
+            app:layout_constraintHorizontal_bias="0.466"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
@@ -93,7 +93,7 @@
             android:text="Password"
             android:textColor="#4e8d7c"
             android:textSize="14sp"
-            android:textStyle="normal"
+            android:fontFamily="@font/poppins_medium"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.143"
             app:layout_constraintStart_toStartOf="parent"
@@ -103,18 +103,18 @@
             android:id="@+id/edtpassword"
             android:layout_width="308dp"
             android:layout_height="50dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="12dp"
             android:background="@drawable/shape_rounded_correr_full"
             android:elevation="2dp"
+            android:fontFamily="@font/poppins_regular"
             android:hint="Type your password"
             android:inputType="textPassword"
             android:paddingStart="10sp"
             android:paddingTop="8sp"
             android:paddingBottom="8sp"
             android:textSize="16sp"
-            android:textStyle="normal"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.495"
+            app:layout_constraintHorizontal_bias="0.466"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView81" />
 
@@ -122,13 +122,13 @@
             android:id="@+id/textView811"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="96dp"
+            android:layout_marginTop="104dp"
+            android:fontFamily="@font/poppins_medium"
             android:text="Confirm Password"
             android:textColor="#4e8d7c"
             android:textSize="14sp"
-            android:textStyle="normal"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.169"
+            app:layout_constraintHorizontal_bias="0.17"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/edtgmail" />
 
@@ -136,9 +136,10 @@
             android:id="@+id/edtCfpassword"
             android:layout_width="308dp"
             android:layout_height="50dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="8dp"
             android:background="@drawable/shape_rounded_correr_full"
             android:elevation="2dp"
+            android:fontFamily="@font/poppins_regular"
             android:hint="Type your confirm password"
             android:inputType="textPassword"
             android:paddingStart="10sp"
@@ -146,9 +147,8 @@
             android:paddingBottom="8sp"
             android:text=""
             android:textSize="16sp"
-            android:textStyle="normal"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.485"
+            app:layout_constraintHorizontal_bias="0.466"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView811" />
 
@@ -158,11 +158,12 @@
             android:layout_height="50dp"
             android:layout_marginTop="16dp"
             android:background="@drawable/shape_rounded_button"
+            android:fontFamily="@font/poppins_medium"
             android:text="REGISTER"
             android:textColor="#F6F2ED"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.495"
+            app:layout_constraintHorizontal_bias="0.466"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/edtCfpassword" />
 
@@ -172,11 +173,12 @@
             android:layout_height="50dp"
             android:layout_marginTop="120dp"
             android:background="@drawable/shape_rounded_button"
+            android:fontFamily="@font/poppins_medium"
             android:text="SIGN IN"
             android:textColor="#F6F2ED"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.485"
+            app:layout_constraintHorizontal_bias="0.466"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/edtCfpassword" />
 
@@ -185,10 +187,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            android:fontFamily="@font/poppins_regular"
             android:text="Already have an account?"
             android:textColor="#A6A5A5"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btnregister" />
 

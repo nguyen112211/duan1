@@ -2,14 +2,18 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.Duan1ne" parent="Theme.AppCompat.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+
+        <item name="android:navigationBarColor">#ffffff</item>
+
     </style>
 
-    <style name="Theme.Duan1ne" parent="Base.Theme.Duan1ne" />
 
     <style name="Theme.App.Starting" parent="Theme.AppCompat.DayNight.NoActionBar">
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowBackground">@drawable/bg_splash</item>
-    </style>#f6d7b4
+    </style>
+
+
+
 
 </resources>

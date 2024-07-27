@@ -8,6 +8,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -48,7 +50,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.item_product, parent, false);
+        View view = inflater.inflate(R.layout.item_product1, parent, false);
         return new ViewHolder(view);
     }
 
@@ -58,15 +60,13 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         productDao = new ProductDao(context);
         boolean isInCart = productDao.isProductInCart(product.getId());
         holder.name.setText(product.getName());
-        holder.price.setText(String.valueOf(product.getPrice()));
+        holder.price.setText(String.valueOf(product.getPrice()) + "VNĐ");
 
         if (isInCart) {
-            holder.addtocart.setText("Added");
-            holder.addtocart.setEnabled(false);
+            holder.add.setVisibility(View.GONE);
         } else {
-            holder.addtocart.setText("Add to Cart");
-            holder.addtocart.setEnabled(true);
-            holder.addtocart.setOnClickListener(new View.OnClickListener() {
+            holder.add.setVisibility(View.VISIBLE);
+            holder.add.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     int clickedPosition = holder.getAdapterPosition();
@@ -164,12 +164,13 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView name, price, addtocart;
+        ImageView add;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.name);
             price = itemView.findViewById(R.id.price);
-            addtocart = itemView.findViewById(R.id.buttonAddToCart);
+            add = itemView.findViewById(R.id.buttonAddToCart);
         }
     }
 }

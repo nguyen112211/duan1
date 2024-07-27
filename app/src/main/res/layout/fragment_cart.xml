@@ -11,7 +11,7 @@
         android:text="Your Cart"
         android:textSize="24sp"
         android:padding="16dp"
-        android:textColor="@color/black"
+        android:textColor="@color/Black"
         android:gravity="center"/>
 
     <!-- RecyclerView to display products -->
