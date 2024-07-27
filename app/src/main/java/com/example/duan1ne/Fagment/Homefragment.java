@@ -75,7 +75,7 @@ public class Homefragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_homefragment, container, false);
+        return inflater.inflate(R.layout.fragment_homefragment1, container, false);
 
 
     }
@@ -87,7 +87,6 @@ public class Homefragment extends Fragment {
     public void onViewCreated(@NonNull View view , @Nullable Bundle savedInstanceState){
         super.onViewCreated(view, savedInstanceState);
         RecyclerView recyclerView = view.findViewById(R.id.recyclerview_list);
-        edtsearch = view.findViewById(R.id.edtsearch);
         productDao = new ProductDao(requireContext());
         list = ProductDao.getDsProduct();
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 2);
@@ -95,13 +94,7 @@ public class Homefragment extends Fragment {
         Context context = requireContext();
         RecyclerView.Adapter adapter= new ProductAdapter(context,list);
         recyclerView.setAdapter(adapter);
-        edtsearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(requireContext(), SearchActivity2.class);
-                startActivity(i);
-            }
-        });
+
 
     }
 

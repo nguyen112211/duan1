@@ -34,59 +34,59 @@ public class Database extends SQLiteOpenHelper {
         dp.execSQL(product);
         //them du lieu mau product
         ContentValues values = new ContentValues();
-        values.put("name", "cafe sữa");
+        values.put("name", "Caffe Mocha");
         values.put("image", getBytesFromImage(R.drawable.anh1)); // Sử dụng đối tượng Context đã được lưu trữ
-        values.put("price", 15000);
+        values.put("price", 450000);
         values.put("category_id", 1);
         dp.insert("PRODUCT", null, values);
 
         ContentValues values2 = new ContentValues();
-        values2.put("name", "Trà sữa trân châu");
+        values2.put("name", "Caffe Mocha");
         values2.put("image", getBytesFromImage(R.drawable.anh1));
-        values2.put("price", 20000);
+        values2.put("price", 450000);
         values2.put("category_id", 2);
         dp.insert("PRODUCT", null, values2);
 
         ContentValues values3 = new ContentValues();
-        values3.put("name", "Trà sữa khoai môn");
+        values3.put("name", "Caffe Mocha");
         values3.put("image", getBytesFromImage(R.drawable.anh1));
-        values3.put("price", 50000);
+        values3.put("price", 450000);
         values3.put("category_id", 3);
         dp.insert("PRODUCT", null, values3);
 
         ContentValues values4 = new ContentValues();
-        values4.put("name", "Trà sữa chân châu");
+        values4.put("name", "Caffe Mocha");
         values4.put("image", getBytesFromImage(R.drawable.anh1));
-        values4.put("price", 50000);
+        values4.put("price", 450000);
         values4.put("category_id", 4);
         dp.insert("PRODUCT", null, values4);
 
         ContentValues values5 = new ContentValues();
-        values5.put("name", "Trà sữa Socola");
+        values5.put("name", "Caffe Mocha");
         values5.put("image", getBytesFromImage(R.drawable.anh1));
-        values5.put("price", 50000);
+        values5.put("price", 450000);
         values5.put("category_id", 5);
         dp.insert("PRODUCT", null, values5);
 
         ContentValues values6 = new ContentValues();
-        values6.put("name", "Trà sữa hoàng kim");
+        values6.put("name", "Caffe Mocha");
         values6.put("image", getBytesFromImage(R.drawable.anh1));
-        values6.put("price", 50000);
+        values6.put("price", 450000);
         values6.put("category_id", 6);
         dp.insert("PRODUCT", null, values6);
 
         ContentValues values7 = new ContentValues();
-        values7.put("name", "cafe đen");
+        values7.put("name", "Caffe Mocha");
         values7.put("image", getBytesFromImage(R.drawable.anh1));
-        values7.put("price", 50000);
+        values7.put("price", 450000);
         values7.put("category_id", 6);
         dp.insert("PRODUCT", null, values7);
 
 
         ContentValues values8 = new ContentValues();
-        values8.put("name", "cafe sữa dừa");
+        values8.put("name", "Caffe Mocha");
         values8.put("image", getBytesFromImage(R.drawable.anh1));
-        values8.put("price", 50000);
+        values8.put("price", 450000);
         values8.put("category_id", 6);
         dp.insert("PRODUCT", null, values8);
 

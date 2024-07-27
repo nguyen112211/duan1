@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:id="@+id/menu_home" android:title="Home" android:icon="@drawable/icon_home"/>
-    <item android:id="@+id/menu_oder" android:title="card" android:icon="@drawable/cart1"/>
-    <item android:id="@+id/menu_account" android:title="Home" android:icon="@drawable/icon_home"/>
+    <item android:id="@+id/menu_home" android:title="Home" android:icon="@drawable/ic_home" />
+    <item android:id="@+id/menu_scan" android:title="Scan / Pay" android:icon="@drawable/ic_scan"/>
+    <item android:id="@+id/menu_oder" android:title="Order" android:icon="@drawable/ic_order"/>
+    <item android:id="@+id/menu_account" android:title="Account" android:icon="@drawable/ic_account"/>
+    <item android:id="@+id/menu_rewards" android:title="Rewards" android:icon="@drawable/ic_rewards"/>
+
 </menu>

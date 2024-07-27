@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,16 +25,19 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
     private ArrayList<Cart> list;
     private CartDao cartDao;
     TextView total;
+    LinearLayout ln1,ln2;
 
     public CartAdapter(Context context, ArrayList<Cart> list) {
         this.context = context;
         this.list = list;
     }
 
-    public CartAdapter(Context context, ArrayList<Cart> list, TextView total) {
+    public CartAdapter(Context context, ArrayList<Cart> list, TextView total, LinearLayout ln1, LinearLayout ln2) {
         this.context = context;
         this.list = list;
         this.total = total;
+        this.ln1 = ln1;
+        this.ln2 = ln2;
         cartDao = new CartDao(context); // Khởi tạo CartDao
         updatePrice(); // Cập nhật tổng giá trị khi khởi tạo adapter
     }
@@ -42,6 +46,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         list.clear();
         list = cartDao.getDsCart();
         notifyDataSetChanged();
+        checkAmount();
         updatePrice();
     }
 
@@ -118,12 +123,22 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         }
     }
 
-    public void updatePrice() {
+    private void updatePrice() {
         int sum = 0;
         for (int i = 0; i < list.size(); i++) {
             sum += list.get(i).getPrice() * list.get(i).getQuantity();
         }
         total.setText("Total: " + sum);
+    }
+
+    private void checkAmount(){
+        if (list.size() > 0) {
+            ln1.setVisibility(View.GONE);
+            ln2.setVisibility(View.VISIBLE);
+        }else {
+            ln1.setVisibility(View.VISIBLE);
+            ln2.setVisibility(View.GONE);
+        }
     }
 
 }

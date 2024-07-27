@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.duan1ne.Activity_login;
@@ -33,15 +34,18 @@ public class CartFragment extends Fragment {
     private CartDao cartDao;
     private ArrayList<Cart> listCart;
     RecyclerView recyclerCart;
+    LinearLayout ln1,ln2;
     TextView total;
 
 
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_cart, container, false);
+        View view = inflater.inflate(R.layout.fragment_cart1, container, false);
         recyclerCart = view.findViewById(R.id.recyclerViewCart);
         total = view.findViewById(R.id.txtTotalPrice);
         Button btnCheckout = view.findViewById(R.id.buttonCheckout);
+        ln1 = view.findViewById(R.id.linearLayout);
+        ln2 = view.findViewById(R.id.linearLayout1);
         btnCheckout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -63,9 +67,16 @@ public class CartFragment extends Fragment {
     private void loadData(){
         cartDao = new CartDao(getContext());
         listCart = cartDao.getDsCart();
+        if (listCart.size() > 0) {
+            ln1.setVisibility(View.GONE);
+            ln2.setVisibility(View.VISIBLE);
+        }else {
+            ln1.setVisibility(View.VISIBLE);
+            ln2.setVisibility(View.GONE);
+        }
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         recyclerCart.setLayoutManager(linearLayoutManager);
-        CartAdapter adapter = new CartAdapter(getContext(), listCart, total);
+        CartAdapter adapter = new CartAdapter(getContext(), listCart, total,ln1,ln2);
         recyclerCart.setAdapter(adapter);
     }
 
