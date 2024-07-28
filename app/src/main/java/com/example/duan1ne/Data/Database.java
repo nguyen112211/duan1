@@ -112,4 +112,34 @@ public class Database extends SQLiteOpenHelper {
             onCreate(dp);
         }
     }
+
+    // Thêm sản phẩm
+    public long addProduct(String name, byte[] image, int price, int categoryId) {
+        SQLiteDatabase dp = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("name", name);
+        values.put("image", image);
+        values.put("price", price);
+        values.put("category_id", categoryId);
+        return dp.insert("PRODUCT", null, values);
+    }
+
+    // Xóa sản phẩm
+    public int deleteProduct(int productId) {
+        SQLiteDatabase dp = this.getWritableDatabase();
+        return dp.delete("PRODUCT", "id = ?", new String[]{String.valueOf(productId)});
+    }
+
+    // Sửa sản phẩm
+    public int updateProduct(int productId, String name, byte[] image, int price, int categoryId) {
+        SQLiteDatabase dp = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("name", name);
+        values.put("image", image);
+        values.put("price", price);
+        values.put("category_id", categoryId);
+        return dp.update("PRODUCT", values, "id = ?", new String[]{String.valueOf(productId)});
+    }
+
+
 }
