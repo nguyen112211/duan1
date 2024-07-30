@@ -1,9 +1,8 @@
 package com.example.duan1ne.Data;
 
-
-
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.Bitmap;
@@ -15,6 +14,7 @@ import java.io.ByteArrayOutputStream;
 
 public class Database extends SQLiteOpenHelper {
     private Context context;
+
     public Database(Context context) {
         super(context, "magiccoffee", null, 11);
         this.context = context;
@@ -22,78 +22,33 @@ public class Database extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase dp) {
-        String category ="CREATE TABLE CATEGORY(id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT);";
+        String category = "CREATE TABLE CATEGORY(id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT);";
         dp.execSQL(category);
 
         //tạo bảng cart
-        String cartTable = "CREATE TABLE CART(id INTEGER PRIMARY KEY AUTOINCREMENT, product_id INTEGER, name text,price interger, quantity INTEGER);";
+        String cartTable = "CREATE TABLE CART(id INTEGER PRIMARY KEY AUTOINCREMENT, product_id INTEGER, name text, price INTEGER, quantity INTEGER);";
         dp.execSQL(cartTable);
 
-        //tao bang product
-        String product = "CREATE TABLE PRODUCT(id INTEGER PRIMARY KEY AUTOINCREMENT ,name TEXT, image BLOB , price INTEGER, inCart INTEGER DEFAULT 0, category_id INTEGER REFERENCES CATEGORY(id))";
+        //tạo bảng product
+        String product = "CREATE TABLE PRODUCT(id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, image BLOB, price INTEGER, inCart INTEGER DEFAULT 0, category_id INTEGER REFERENCES CATEGORY(id))";
         dp.execSQL(product);
-        //them du lieu mau product
-        ContentValues values = new ContentValues();
-        values.put("name", "Caffe Mocha");
-        values.put("image", getBytesFromImage(R.drawable.anh1)); // Sử dụng đối tượng Context đã được lưu trữ
-        values.put("price", 450000);
-        values.put("category_id", 1);
-        dp.insert("PRODUCT", null, values);
 
-        ContentValues values2 = new ContentValues();
-        values2.put("name", "Caffe Mocha");
-        values2.put("image", getBytesFromImage(R.drawable.anh1));
-        values2.put("price", 450000);
-        values2.put("category_id", 2);
-        dp.insert("PRODUCT", null, values2);
-
-        ContentValues values3 = new ContentValues();
-        values3.put("name", "Caffe Mocha");
-        values3.put("image", getBytesFromImage(R.drawable.anh1));
-        values3.put("price", 450000);
-        values3.put("category_id", 3);
-        dp.insert("PRODUCT", null, values3);
-
-        ContentValues values4 = new ContentValues();
-        values4.put("name", "Caffe Mocha");
-        values4.put("image", getBytesFromImage(R.drawable.anh1));
-        values4.put("price", 450000);
-        values4.put("category_id", 4);
-        dp.insert("PRODUCT", null, values4);
-
-        ContentValues values5 = new ContentValues();
-        values5.put("name", "Caffe Mocha");
-        values5.put("image", getBytesFromImage(R.drawable.anh1));
-        values5.put("price", 450000);
-        values5.put("category_id", 5);
-        dp.insert("PRODUCT", null, values5);
-
-        ContentValues values6 = new ContentValues();
-        values6.put("name", "Caffe Mocha");
-        values6.put("image", getBytesFromImage(R.drawable.anh1));
-        values6.put("price", 450000);
-        values6.put("category_id", 6);
-        dp.insert("PRODUCT", null, values6);
-
-        ContentValues values7 = new ContentValues();
-        values7.put("name", "Caffe Mocha");
-        values7.put("image", getBytesFromImage(R.drawable.anh1));
-        values7.put("price", 450000);
-        values7.put("category_id", 6);
-        dp.insert("PRODUCT", null, values7);
-
-
-        ContentValues values8 = new ContentValues();
-        values8.put("name", "Caffe Mocha");
-        values8.put("image", getBytesFromImage(R.drawable.anh1));
-        values8.put("price", 450000);
-        values8.put("category_id", 6);
-        dp.insert("PRODUCT", null, values8);
-
-
-
-
+        //thêm dữ liệu mẫu product
+        addSampleProducts(dp);
     }
+
+    private void addSampleProducts(SQLiteDatabase dp) {
+        int[] categories = {1, 2, 3, 4, 5, 6};
+        for (int categoryId : categories) {
+            ContentValues values = new ContentValues();
+            values.put("name", "Caffe Mocha");
+            values.put("image", getBytesFromImage(R.drawable.anh1));
+            values.put("price", 450000);
+            values.put("category_id", categoryId);
+            dp.insert("PRODUCT", null, values);
+        }
+    }
+
     private byte[] getBytesFromImage(int resourceId) {
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), resourceId);
@@ -101,15 +56,41 @@ public class Database extends SQLiteOpenHelper {
         return stream.toByteArray();
     }
 
-
-
     @Override
-    public void onUpgrade(SQLiteDatabase dp, int i, int i1) {
-        if(i != i1){
+    public void onUpgrade(SQLiteDatabase dp, int oldVersion, int newVersion) {
+        if (oldVersion != newVersion) {
             dp.execSQL("DROP TABLE IF EXISTS CATEGORY");
             dp.execSQL("DROP TABLE IF EXISTS PRODUCT");
             dp.execSQL("DROP TABLE IF EXISTS CART");
             onCreate(dp);
         }
     }
+
+    // Thêm sản phẩm
+    public long addProduct(String name, byte[] image, int price, int categoryId) {
+        SQLiteDatabase dp = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("name", name);
+        values.put("image", image);
+        values.put("price", price);
+        values.put("category_id", categoryId);
+        return dp.insert("PRODUCT", null, values);
+    }
+
+//    // Xóa sản phẩm
+//    public int deleteProduct(int productId) {
+//        SQLiteDatabase dp = this.getWritableDatabase();
+//        return dp.delete("PRODUCT", "id = ?", new String[]{String.valueOf(productId)});
+//    }
+//
+//    // Sửa sản phẩm
+//    public int updateProduct(int productId, String name, byte[] image, int price, int categoryId) {
+//        SQLiteDatabase dp = this.getWritableDatabase();
+//        ContentValues values = new ContentValues();
+//        values.put("name", name);
+//        values.put("image", image);
+//        values.put("price", price);
+//        values.put("category_id", categoryId);
+//        return dp.update("PRODUCT", values, "id = ?", new String[]{String.valueOf(productId)});
+//    }
 }
