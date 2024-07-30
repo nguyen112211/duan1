@@ -1,3 +1,4 @@
+// AdminActivity.java
 package com.example.duan1ne;
 
 import android.annotation.SuppressLint;
@@ -23,9 +24,10 @@ public class AdminActivity extends Activity {
 
     private EditText etProductName, etProductPrice, etCategoryId;
     private ImageView ivProductImage;
-    private Button btnSelectImage, btnAddProduct, btnUpdateProduct, btnDeleteProduct,btnViewProduct;
+    private Button btnSelectImage, btnAddProduct, btnViewProduct;
     private Database db;
     private Bitmap productImage;
+    private int productId;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -41,30 +43,25 @@ public class AdminActivity extends Activity {
         ivProductImage = findViewById(R.id.ivProductImage);
         btnSelectImage = findViewById(R.id.btnSelectImage);
         btnAddProduct = findViewById(R.id.btnAddProduct);
-        btnUpdateProduct = findViewById(R.id.btnUpdateProduct);
-        btnDeleteProduct = findViewById(R.id.btnDeleteProduct);
         btnViewProduct = findViewById(R.id.btnViewProduct);
+
+        Intent intent = getIntent();
+        productId = intent.getIntExtra("PRODUCT_ID", -1);
 
         btnSelectImage.setOnClickListener(v -> {
             Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
                 startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
             }
-
         });
 
-        btnViewProduct.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(AdminActivity.this,ViewActivity.class);
-                startActivity(i);
-                finish();
-            }
+        btnViewProduct.setOnClickListener(v -> {
+            Intent i = new Intent(AdminActivity.this, ViewActivity.class);
+            startActivity(i);
+            finish();
         });
 
         btnAddProduct.setOnClickListener(v -> addProduct());
-        btnUpdateProduct.setOnClickListener(v -> updateProduct());
-        btnDeleteProduct.setOnClickListener(v -> deleteProduct());
     }
 
     private void addProduct() {
@@ -82,45 +79,11 @@ public class AdminActivity extends Activity {
         }
     }
 
-    private void updateProduct() {
-        String name = etProductName.getText().toString();
-        int price = Integer.parseInt(etProductPrice.getText().toString());
-        int categoryId = Integer.parseInt(etCategoryId.getText().toString());
-        byte[] image = getImageBytes(productImage);
-
-        int productId = 1; // Thay thế bằng giá trị productId thực tế
-        int result = db.updateProduct(productId, name, image, price, categoryId);
-        if (result > 0) {
-            Toast.makeText(this, "Sửa sản phẩm thành công", Toast.LENGTH_SHORT).show();
-            resetFields();
-        } else {
-            Toast.makeText(this, "Sửa sản phẩm thất bại", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    private void deleteProduct() {
-        int productId = 1; // Thay thế bằng giá trị productId thực tế
-        int result = db.deleteProduct(productId);
-        if (result > 0) {
-            Toast.makeText(this, "Xóa sản phẩm thành công", Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(this, "Xóa sản phẩm thất bại", Toast.LENGTH_SHORT).show();
-        }
-    }
-
     private byte[] getImageBytes(Bitmap bitmap) {
-        if (bitmap == null) return null;
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
-        return stream.toByteArray();
-    }
-
-    private void resetFields() {
-        etProductName.setText("");
-        etProductPrice.setText("");
-        etCategoryId.setText("");
-        ivProductImage.setImageResource(android.R.color.transparent);
-        productImage = null;
+        if (bitmap == null) return new byte[0];
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+        return byteArrayOutputStream.toByteArray();
     }
 
     @Override
@@ -131,5 +94,13 @@ public class AdminActivity extends Activity {
             productImage = (Bitmap) extras.get("data");
             ivProductImage.setImageBitmap(productImage);
         }
+    }
+
+    private void resetFields() {
+        etProductName.setText("");
+        etProductPrice.setText("");
+        etCategoryId.setText("");
+        ivProductImage.setImageBitmap(null);
+        productImage = null;
     }
 }

@@ -1,9 +1,12 @@
 package com.example.duan1ne;
 
-import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -11,19 +14,21 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.duan1ne.Adapter.ProductAdapter;
+import com.example.duan1ne.Adapter.ProductAdapterAdmin;
 import com.example.duan1ne.Model.Product;
 import com.example.duan1ne.dao.ProductDao;
 
+import java.io.ByteArrayOutputStream;
 import java.util.List;
 
-public class ViewActivity extends AppCompatActivity {
+public class ViewActivity extends AppCompatActivity implements ProductAdapterAdmin.OnProductClickListener {
 
     private RecyclerView recyclerView;
-    private ProductAdapter productAdapter;
+    private ProductAdapterAdmin productAdapterAdmin;
     private ProductDao productDao;
-TextView tv_back;
-    @SuppressLint("MissingInflatedId")
+    TextView tv_back;
+    private Bitmap productImage;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,32 +38,94 @@ TextView tv_back;
 
         recyclerView = findViewById(R.id.recyclerView);
         tv_back = findViewById(R.id.tv_back);
+
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         List<Product> productList = productDao.getDsProduct();
         if (productList.isEmpty()) {
             Toast.makeText(this, "No products available", Toast.LENGTH_SHORT).show();
         } else {
-            productAdapter = new ProductAdapter(this, productList);
-            recyclerView.setAdapter(productAdapter);
+            productAdapterAdmin = new ProductAdapterAdmin(this, productList, this);
+            recyclerView.setAdapter(productAdapterAdmin);
         }
 
-        tv_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(ViewActivity.this,AdminActivity.class);
-                startActivity(i);
-                finish();
-            }
+        tv_back.setOnClickListener(v -> {
+            Intent intent = new Intent(ViewActivity.this, AdminActivity.class);
+            startActivity(intent);
+            finish();
         });
     }
 
-    public void updateCart(List<Product> cartProducts) {
-        // Phương thức này có thể được gọi từ Adapter để cập nhật danh sách sản phẩm trong giỏ hàng
-        // Nếu cần, bạn có thể cập nhật giao diện hoặc xử lý logic khác tại đây
-        // Hiện tại, chỉ in ra danh sách sản phẩm trong giỏ hàng để kiểm tra
-        for (Product product : cartProducts) {
-            Toast.makeText(this, "Product in cart: " + product.getName(), Toast.LENGTH_SHORT).show();
-        }
+    @Override
+    public void onUpdateClick(Product product) {
+        showUpdateDialog(product);
+    }
+
+    @Override
+    public void onDeleteClick(int productId) {
+        showDeleteDialog(productId);
+    }
+
+    private void showUpdateDialog(Product product) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.dialog_update_product, null);
+        builder.setView(dialogView);
+
+        EditText etProductName = dialogView.findViewById(R.id.etProductName);
+        EditText etProductPrice = dialogView.findViewById(R.id.etProductPrice);
+
+        // Điền thông tin sản phẩm hiện tại vào dialog
+        etProductName.setText(product.getName());
+        etProductPrice.setText(String.valueOf(product.getPrice()));
+
+        builder.setTitle("Update Product")
+                .setPositiveButton("Update", (dialog, id) -> {
+                    String name = etProductName.getText().toString();
+                    int price = Integer.parseInt(etProductPrice.getText().toString());
+                    byte[] image = getImageBytes(productImage);
+
+                    // Cập nhật sản phẩm trong cơ sở dữ liệu
+                    productDao.updateProduct(product.getId(), name, image, price);
+                    Toast.makeText(this, "Cập nhật sản phẩm thành công", Toast.LENGTH_SHORT).show();
+
+                    // Refresh RecyclerView
+                    refreshProductList();
+                })
+                .setNegativeButton("Cancel", (dialog, id) -> dialog.dismiss());
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    private void showDeleteDialog(int productId) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Delete Product")
+                .setMessage("Are you sure you want to delete this product?")
+                .setPositiveButton("Delete", (dialog, id) -> {
+                    // Xóa sản phẩm trong cơ sở dữ liệu
+                    productDao.deleteProduct(productId);
+                    Toast.makeText(this, "Xóa sản phẩm thành công", Toast.LENGTH_SHORT).show();
+
+                    // Refresh RecyclerView
+                    refreshProductList();
+                })
+                .setNegativeButton("Cancel", (dialog, id) -> dialog.dismiss());
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    private byte[] getImageBytes(Bitmap bitmap) {
+        if (bitmap == null) return new byte[0];
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+        return byteArrayOutputStream.toByteArray();
+    }
+
+    private void refreshProductList() {
+        List<Product> productList = productDao.getDsProduct();
+        productAdapterAdmin = new ProductAdapterAdmin(this, productList, this);
+        recyclerView.setAdapter(productAdapterAdmin);
     }
 }

@@ -48,24 +48,12 @@
         android:layout_marginTop="16dp"
         android:text="Add Product" />
 
-    <Button
-        android:id="@+id/btnUpdateProduct"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Update Product" />
 
-    <Button
-        android:id="@+id/btnDeleteProduct"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Delete Product" />
     <Button
         android:id="@+id/btnViewProduct"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="Xem Product" />
+        android:text="Xem Danh Sách Product" />
 
 </LinearLayout>

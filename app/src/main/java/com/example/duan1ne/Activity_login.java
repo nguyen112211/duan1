@@ -83,13 +83,11 @@ public class Activity_login extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
                     if(email.equals("admin@gmail.com")){
-                        Log.d("TAG", "onComplete: " + "vao day111111111");
                         Toast.makeText(Activity_login.this, "Đăng nhập vào admin thành công", Toast.LENGTH_SHORT).show();
                         Intent i = new Intent(Activity_login.this,AdminActivity.class);
                         startActivity(i);
                         finish();
                     }else {
-                        Log.d("TAG", "onComplete: " + "vao day2222222222");
                         Toast.makeText(Activity_login.this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
                         Intent i = new Intent(Activity_login.this,MainActivity.class);
                         startActivity(i);
