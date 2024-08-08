@@ -33,6 +33,10 @@ public class Database extends SQLiteOpenHelper {
         String product = "CREATE TABLE PRODUCT(id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, image BLOB, price INTEGER, inCart INTEGER DEFAULT 0, category_id INTEGER REFERENCES CATEGORY(id))";
         dp.execSQL(product);
 
+        //tạo bảng product
+        String users = "CREATE TABLE USER(id TEXT PRIMARY KEY, name TEXT, role INTEGER, email TEXT, phone TEXT, address TEXT)";
+        dp.execSQL(users);
+
         //thêm dữ liệu mẫu product
         addSampleProducts(dp);
     }
@@ -47,6 +51,8 @@ public class Database extends SQLiteOpenHelper {
             values.put("category_id", categoryId);
             dp.insert("PRODUCT", null, values);
         }
+
+        dp.execSQL("INSERT INTO USER VALUES ('0rOgurz8E1TmxVpeAqtKeBs9l7k2', 'Test', 1 ,'test123@gmail.com','09622421','TP. HCM')");
     }
 
     private byte[] getBytesFromImage(int resourceId) {

@@ -1,6 +1,8 @@
 package com.example.duan1ne;
 
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -16,73 +18,110 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.duan1ne.Data.Database;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class Activity_signin extends AppCompatActivity {
-    private EditText edtemail,edtpassword,edtpassword1;
-    private Button btnlogin,btnregister;
+    private EditText edtemail, edtpassword, edtpassword1, edtName, edtPhone, edtAddress;
+    private Button btnlogin, btnregister;
     private FirebaseAuth mAuth;
+    private static Database database;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_signup);
-        mAuth= FirebaseAuth.getInstance();
+
+        // Khởi tạo Firebase Auth
+        mAuth = FirebaseAuth.getInstance();
+
+        // Khởi tạo Database
+        database = new Database(this);
+
+        // Gán các EditText và Button
         edtemail = findViewById(R.id.edtgmail);
         edtpassword = findViewById(R.id.edtpassword);
         edtpassword1 = findViewById(R.id.edtCfpassword);
+        edtName = findViewById(R.id.edtName);
+        edtPhone = findViewById(R.id.edtPhone);
+        edtAddress = findViewById(R.id.edtAdd);
         btnregister = findViewById(R.id.btnregister);
         btnlogin = findViewById(R.id.btnlogin);
+
+        // Xử lý sự kiện nhấn nút đăng nhập
         btnlogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(Activity_signin.this , Activity_login.class);
+                Intent i = new Intent(Activity_signin.this, Activity_login.class);
                 startActivity(i);
             }
         });
+
+        // Xử lý sự kiện nhấn nút đăng ký
         btnregister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 register();
             }
-            private void register(){
-                String email,password,password1;
-                email = edtemail.getText().toString();
-                password = edtpassword.getText().toString();
-                password1 = edtpassword1.getText().toString();
-                if(TextUtils.isEmpty(email)){
-                    Toast.makeText(getApplicationContext(),"vui lòng nhập email",Toast.LENGTH_SHORT).show();
+
+            private void register() {
+                String email = edtemail.getText().toString();
+                String password = edtpassword.getText().toString();
+                String password1 = edtpassword1.getText().toString();
+                String name = edtName.getText().toString();
+                String phone = edtPhone.getText().toString();
+                String address = edtAddress.getText().toString();
+
+                if (TextUtils.isEmpty(email)) {
+                    Toast.makeText(getApplicationContext(), "Vui lòng nhập email", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if(TextUtils.isEmpty(password)){
-                    Toast.makeText(getApplicationContext(),"vui lòng nhập mật khẩu",Toast.LENGTH_SHORT).show();
+                if (TextUtils.isEmpty(password)) {
+                    Toast.makeText(getApplicationContext(), "Vui lòng nhập mật khẩu", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if(TextUtils.isEmpty(password1)){
-                    Toast.makeText(getApplicationContext(),"vui lòng nhập xác nhận mật khẩu",Toast.LENGTH_SHORT).show();
+                if (TextUtils.isEmpty(password1)) {
+                    Toast.makeText(getApplicationContext(), "Vui lòng nhập xác nhận mật khẩu", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if(!password.equals(password1)){
-                    Toast.makeText(getApplicationContext(),"Mật khẩu không trùng khớp",Toast.LENGTH_SHORT).show();
+                if (!password.equals(password1)) {
+                    Toast.makeText(getApplicationContext(), "Mật khẩu không trùng khớp", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+
+                // Tạo tài khoản Firebase
+                mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()){
+                        if (task.isSuccessful()) {
+                            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                            String uid = user.getUid();
+                            ContentValues values = new ContentValues();
+                            values.put("id", uid);
+                            values.put("name", name);
+                            values.put("role", 1);
+                            values.put("email", email);
+                            values.put("phone", phone);
+                            values.put("address", address);
+
+                            // Chèn dữ liệu vào cơ sở dữ liệu SQLite
+                            SQLiteDatabase db = database.getWritableDatabase();
+                            db.insert("USER", null, values);
+                            db.close();
+
                             Toast.makeText(getApplicationContext(), "Tạo tài khoản thành công", Toast.LENGTH_SHORT).show();
-                            Intent i = new Intent(Activity_signin.this , Activity_login.class);
+                            Intent i = new Intent(Activity_signin.this, Activity_login.class);
                             startActivity(i);
-                        }else{
-                            Toast.makeText(getApplicationContext(), "tạo tài khoản khong thành công", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Tạo tài khoản không thành công", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
             }
         });
-
     }
 }

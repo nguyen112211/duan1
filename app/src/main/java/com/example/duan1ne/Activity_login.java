@@ -18,6 +18,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class Activity_login extends AppCompatActivity {
     private EditText edtemail,edtpassword;
@@ -82,6 +83,7 @@ public class Activity_login extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
+                    FirebaseUser user = mAuth.getCurrentUser();
                     if(email.equals("admin@gmail.com")){
                         Toast.makeText(Activity_login.this, "Đăng nhập vào admin thành công", Toast.LENGTH_SHORT).show();
                         Intent i = new Intent(Activity_login.this,AdminActivity.class);
