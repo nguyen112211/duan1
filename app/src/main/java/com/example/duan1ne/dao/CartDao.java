@@ -19,10 +19,10 @@ public class CartDao {
 
 
 
-    public ArrayList<Cart> getDsCart(){
+    public ArrayList<Cart> getDsCart(String id){
         ArrayList<Cart> list = new ArrayList<>();
         SQLiteDatabase sqLiteDatabase = database.getReadableDatabase();
-        Cursor cursor = sqLiteDatabase.rawQuery("SELECT id, product_id, name, price, quantity  FROM CART", null);
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT id, product_id, name, price, quantity  FROM CART WHERE user_id = ?",  new String[]{String.valueOf(id)});
         if(cursor.getCount() != 0){
             cursor.moveToFirst();
             do {

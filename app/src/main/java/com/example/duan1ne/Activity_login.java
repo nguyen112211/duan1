@@ -83,7 +83,6 @@ public class Activity_login extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
-                    FirebaseUser user = mAuth.getCurrentUser();
                     if(email.equals("admin@gmail.com")){
                         Toast.makeText(Activity_login.this, "Đăng nhập vào admin thành công", Toast.LENGTH_SHORT).show();
                         Intent i = new Intent(Activity_login.this,AdminActivity.class);

@@ -87,10 +87,6 @@ public class MainActivity extends AppCompatActivity {
                     getSupportFragmentManager().beginTransaction().replace(R.id.container,rewardsFragment).commit();
                     return true;
                 }
-                else if  (item.getItemId()== R.id.menu_scan){
-                    getSupportFragmentManager().beginTransaction().replace(R.id.container,rewardsFragment).commit();
-                    return true;
-                }
                 if (selectedFragment != null) {
                     fragmentManager.beginTransaction().replace(R.id.container, selectedFragment).commit();
                     return true;

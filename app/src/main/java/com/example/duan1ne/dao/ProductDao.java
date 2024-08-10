@@ -38,10 +38,10 @@ public class ProductDao {
         return list;
     }
 
-    public boolean isProductInCart(int productId) {
+    public boolean isProductInCart(int productId, String userid) {
         SQLiteDatabase db = database.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM CART WHERE product_id = ?",
-                new String[]{String.valueOf(productId)});
+        Cursor cursor = db.rawQuery("SELECT * FROM CART WHERE product_id = ? AND user_id = ?",
+                new String[]{String.valueOf(productId),userid});
 
         boolean exists = cursor.getCount() > 0;
         cursor.close();

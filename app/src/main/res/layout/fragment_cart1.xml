@@ -50,6 +50,16 @@
 
         <!-- Header -->
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:text="My Order"
+            android:fontFamily="@font/poppins_bold"
+            android:textColor="@color/Black"
+            android:textSize="20sp"/>
+
         <!-- RecyclerView to display products -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewCart"
@@ -62,26 +72,82 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="end"
-            android:orientation="horizontal"
+            android:orientation="vertical"
+            android:gravity="center"
             android:padding="16dp">
 
-            <!-- Total price -->
-            <TextView
-                android:id="@+id/txtTotalPrice"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_margin="5dp"
                 android:layout_height="wrap_content"
-                android:text="Total: $0.00"
-                android:textSize="18sp" />
+                android:orientation="horizontal">
+
+                <!-- Total price -->
+                <TextView
+                    android:id="@+id/txtT"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="start"
+                    android:textColor="@color/Black"
+                    android:fontFamily="@font/poppins_medium"
+                    android:text="Total"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/txtTotalPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:text="$0.00"
+                    android:textSize="18sp"
+                    android:textColor="@color/Black"
+                    android:fontFamily="@font/poppins_medium"
+                    android:layout_weight="1"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:orientation="horizontal">
+
+                <!-- Total price -->
+                <TextView
+                    android:id="@+id/txtP"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Payment Method"
+                    android:textColor="@color/Black"
+                    android:fontFamily="@font/poppins_medium"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/txtPay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:text="Cash"
+                    android:textSize="18sp"
+                    android:textColor="@color/Black"
+                    android:fontFamily="@font/poppins_medium"
+                    android:layout_weight="1"/>
+
+            </LinearLayout>
 
             <!-- Checkout button -->
+
             <Button
                 android:id="@+id/buttonCheckout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:text="Checkout"
-                android:textSize="18sp" />
+                android:layout_width="match_parent"
+                android:layout_marginHorizontal="20dp"
+                android:layout_height="50dp"
+                android:background="@drawable/shape_rounded_button"
+                android:text="Order"
+                android:fontFamily="@font/poppins_medium"
+                android:textColor="#F6F2ED"
+                android:textSize="14sp" />
+
         </LinearLayout>
 
     </LinearLayout>

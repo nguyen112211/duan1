@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.duan1ne.Model.Cart;
 import com.example.duan1ne.R;
 import com.example.duan1ne.dao.CartDao;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.text.BreakIterator;
 import java.util.ArrayList;
@@ -26,6 +27,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
     private CartDao cartDao;
     TextView total;
     LinearLayout ln1,ln2;
+    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
     public CartAdapter(Context context, ArrayList<Cart> list) {
         this.context = context;
@@ -44,7 +46,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
 
     private void loadData() {
         list.clear();
-        list = cartDao.getDsCart();
+        list = cartDao.getDsCart(mAuth.getCurrentUser().getUid());
         notifyDataSetChanged();
         checkAmount();
         updatePrice();
@@ -128,7 +130,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         for (int i = 0; i < list.size(); i++) {
             sum += list.get(i).getPrice() * list.get(i).getQuantity();
         }
-        total.setText("Total: " + sum);
+        total.setText("" + sum);
     }
 
     private void checkAmount(){

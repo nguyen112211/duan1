@@ -26,16 +26,24 @@ public class Database extends SQLiteOpenHelper {
         dp.execSQL(category);
 
         //tạo bảng cart
-        String cartTable = "CREATE TABLE CART(id INTEGER PRIMARY KEY AUTOINCREMENT, product_id INTEGER, name text, price INTEGER, quantity INTEGER);";
+        String cartTable = "CREATE TABLE CART(id INTEGER PRIMARY KEY AUTOINCREMENT, product_id INTEGER REFERENCES PRODUCT(id) , name text, price INTEGER, quantity INTEGER, user_id TEXT REFERENCES USER(id))";
         dp.execSQL(cartTable);
 
         //tạo bảng product
         String product = "CREATE TABLE PRODUCT(id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, image BLOB, price INTEGER, inCart INTEGER DEFAULT 0, category_id INTEGER REFERENCES CATEGORY(id))";
         dp.execSQL(product);
 
-        //tạo bảng product
+        //tạo bảng users
         String users = "CREATE TABLE USER(id TEXT PRIMARY KEY, name TEXT, role INTEGER, email TEXT, phone TEXT, address TEXT)";
         dp.execSQL(users);
+
+        //tạo bảng order
+        String order = "CREATE TABLE ORDERS(id id PRIMARY KEY, user_id TEXT REFERENCES USER(id), product_id INTEGER REFERENCES PRODUCT(id), price INTEGER, date TEXT, time TEXT, state TEXT)";
+        dp.execSQL(order);
+
+        //tạo bảng cart
+        String orderdetail = "CREATE TABLE ORDERDETAIL(id INTEGER PRIMARY KEY AUTOINCREMENT, product_id INTEGER REFERENCES PRODUCT(id) , order_id INTEGER REFERENCES ORDERS(id), name text, price INTEGER, quantity INTEGER, user_id TEXT REFERENCES USER(id))";
+        dp.execSQL(orderdetail);
 
         //thêm dữ liệu mẫu product
         addSampleProducts(dp);

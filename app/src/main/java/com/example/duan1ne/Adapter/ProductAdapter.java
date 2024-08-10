@@ -23,6 +23,7 @@ import com.example.duan1ne.Model.Product;
 import com.example.duan1ne.R;
 import com.example.duan1ne.dao.CartDao;
 import com.example.duan1ne.dao.ProductDao;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +37,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
     private List<Product> filteredList;
     private Database dbHelper;
     private ProductDao productDao;
+    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
     public ProductAdapter(Context context, List<Product> list) {
         this.context = context;
@@ -58,7 +60,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Product product = filteredList.get(position);
         productDao = new ProductDao(context);
-        boolean isInCart = productDao.isProductInCart(product.getId());
+        boolean isInCart = productDao.isProductInCart(product.getId(), mAuth.getCurrentUser().getUid());
         holder.name.setText(product.getName());
         holder.price.setText(String.valueOf(product.getPrice()) + "VNĐ");
 
@@ -112,6 +114,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         values.put("name", product.getName());
         values.put("price", product.getPrice());
         values.put("quantity", 1);
+        values.put("user_id", mAuth.getCurrentUser().getUid());
 
         long result = db.insert("CART", null, values);
         db.close();

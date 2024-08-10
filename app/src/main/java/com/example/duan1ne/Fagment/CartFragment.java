@@ -26,6 +26,7 @@ import com.example.duan1ne.Model.Product;
 import com.example.duan1ne.R;
 import com.example.duan1ne.dao.CartDao;
 import com.example.duan1ne.dao.ProductDao;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +37,7 @@ public class CartFragment extends Fragment {
     RecyclerView recyclerCart;
     LinearLayout ln1,ln2;
     TextView total;
+    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
 
 
@@ -66,7 +68,7 @@ public class CartFragment extends Fragment {
 
     private void loadData(){
         cartDao = new CartDao(getContext());
-        listCart = cartDao.getDsCart();
+        listCart = cartDao.getDsCart(mAuth.getCurrentUser().getUid());
         if (listCart.size() > 0) {
             ln1.setVisibility(View.GONE);
             ln2.setVisibility(View.VISIBLE);
